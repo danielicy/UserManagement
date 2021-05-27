@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { ApiHttpService } from '../api/api-http.service';
 import { catchError, map } from 'rxjs/operators';
-import {  throwError  } from 'rxjs';
+import {  Observable, throwError  } from 'rxjs';
 import { AppError } from '../../error-handling/app-error';
 /*import { ServiceType } from 'src/app/shared/enums/ServiceType';
 import jwt_decode from 'jwt-decode';*/
@@ -57,7 +57,8 @@ export class AuthService {
      return true;
    }
 
-   get currentUser(): {}{
+   get currentUser(): {admin: string,
+                        exp: number}{
       const user = this.decodedToken;
 
       return user as any;
@@ -79,7 +80,7 @@ export class AuthService {
 
    }
 
-   private handleError(error: Response){
+   private handleError(error: Response): Observable<never>{
     /*if(error.status === 404)
       return throwError( new NotFoundError());
 
