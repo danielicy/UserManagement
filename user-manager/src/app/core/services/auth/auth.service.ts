@@ -57,14 +57,14 @@ export class AuthService {
      return true;
    }
 
-   get currentUser(): {admin: string,
-                        exp: number}{
+   get currentUser(): {admin: string;
+                        exp: number; }{
       const user = this.decodedToken;
 
       return user as any;
    }
 
-   get decodedToken(): {}{
+   get decodedToken(): boolean{
     const token = localStorage.getItem('token') ?? '';
 
 

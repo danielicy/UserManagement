@@ -1,8 +1,13 @@
-import { NgModule } from '@angular/core';
+import { ErrorHandler, NgModule } from '@angular/core';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+
+
 import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { AppErrorHandler } from './core/error-handling';
+import { LoginModule } from './modules/login/login.module';
 
 @NgModule({
   declarations: [
@@ -10,9 +15,12 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    LoginModule
   ],
-  providers: [],
+  providers: [{
+    provide: ErrorHandler,
+    useClass: AppErrorHandler}],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
