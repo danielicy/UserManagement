@@ -4,8 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import {  throwError  } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { NotFoundError, BadInput, AppError } from '../../error-handling';
-/*import { ApiEndpointsService } from './api-endpoints.service';
-import { ServiceType } from 'src/app/shared/enums/ServiceType';*/
+import { environment } from './../../../../environments/environment';
+
+
+const api = environment.apiEndoint;
 
 @Injectable({
   providedIn: 'root'
@@ -14,20 +16,16 @@ export class ApiHttpService {
 
   constructor(
     // Angular Modules
-    private http: HttpClient,
-  //  private apiEndpointsService: ApiEndpointsService
+    private http: HttpClient
   ) { }
   public get(url: string, options?: any) {
-
-    return this.http.get(url, options) .pipe(
+    return this.http.get(api + url, options) .pipe(
       map(response => response),
    catchError(this.handleError)
  );
   }
   public post(url: string, data: any,  options?: any) {
-
-  //  url = this.apiEndpointsService.createUrl(url, true, serviceType);
-    return this.http.post(url, data, options)
+    return this.http.post(api + url, data, options)
     .pipe(
       map(response => response),
       catchError(this.handleError)

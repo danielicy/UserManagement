@@ -16,7 +16,7 @@ export class LoginComponent   {
     private authService: AuthService) { }
 
   signIn(credentials: any): void {
-   /* this.authService.login(credentials)
+    this.authService.login(credentials)
       .subscribe((result: any) => {
         if (result){
           const returnUrl = this.route.snapshot.queryParamMap.get('returnUrl');
@@ -25,6 +25,6 @@ export class LoginComponent   {
         else {
           this.invalidLogin = true;
         }
-      });*/
+      });
   }
 }

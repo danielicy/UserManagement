@@ -14,8 +14,8 @@ export class AuthService {
   constructor(private apiHttpService: ApiHttpService) { }
 
 
-  login(credentials: any): boolean {
-    /*return this.apiHttpService.post('users/login',
+  login(credentials: any): Observable<any> {
+    return this.apiHttpService.post('users/login',
       credentials)
        .pipe(
          map((response: any) => {
@@ -27,9 +27,7 @@ export class AuthService {
           return false;
          }),
            catchError(this.handleError)
-       );*/
-
-       return true;
+       );
    }
 
    logout(): void {
