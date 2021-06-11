@@ -11,6 +11,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 
+using Newtonsoft.Json;
+
 namespace api.caculator
 {
     public class Startup
@@ -25,7 +27,10 @@ namespace api.caculator
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
+            //services.AddControllers();
+            services.AddControllers()
+              .AddNewtonsoftJson();
+
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -36,16 +41,25 @@ namespace api.caculator
                 app.UseDeveloperExceptionPage();
             }
 
-            app.UseHttpsRedirection();
-
             app.UseRouting();
 
-            app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
-            {
-                endpoints.MapControllers();
-            });
+            app.UseCors(builder =>
+                         builder
+                             .AllowAnyHeader()
+                             .AllowAnyMethod()
+                             .AllowCredentials()
+                             .WithOrigins(Configuration.GetSection("AllowedOrigin").Value));
+
+
+            app.UseAuthentication();
+            app.UseHttpsRedirection();
+
+            //app.UseMvc( );
+
+
+
+            app.UseEndpoints(x => x.MapControllers());
         }
     }
 }

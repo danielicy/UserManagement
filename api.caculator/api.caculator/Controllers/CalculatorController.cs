@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using api.caculator.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
@@ -7,33 +8,33 @@ using System.Threading.Tasks;
 
 namespace api.caculator.Controllers
 {
-    [ApiController]
-    [Route("[controller]")]
-    public class CalculatorController : ControllerBase
+    
+    namespace api.caculator.Controllers
     {
-        private static readonly string[] Summaries = new[]
+        [ApiController]
+        [Route("[controller]")]
+        public class CalculatorController : ControllerBase
         {
+            private static readonly string[] Summaries = new[]
+            {
             "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
         };
 
-        private readonly ILogger<CalculatorController> _logger;
+            private readonly ILogger<CalculatorController> _logger;
 
-        public CalculatorController(ILogger<CalculatorController> logger)
-        {
-            _logger = logger;
-        }
-
-        [HttpGet]
-        public IEnumerable<WeatherForecast> Get()
-        {
-            var rng = new Random();
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            public CalculatorController(ILogger<CalculatorController> logger)
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = rng.Next(-20, 55),
-                Summary = Summaries[rng.Next(Summaries.Length)]
-            })
-            .ToArray();
+                _logger = logger;
+            }
+
+           
+             [HttpPost]
+              public async Task<IActionResult> Calculate(Calculation calculation)
+              {
+
+                  return Ok(calculation);
+              }
         }
     }
+
 }
